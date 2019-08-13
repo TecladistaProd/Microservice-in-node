@@ -17,7 +17,9 @@ Se conseguir síncrona/assíncrona:
 
 - Receber uma resposta assíncrona de quando o e-mail com o certificado foi enviado;
 
-## O que sabemos ?
+## O que se sabe ?
+
+### (formas de "conversãso" entre os mesmos)
 
 - REST (latência);
 - Redis / RabbitMQ / **Kafka**;
@@ -30,3 +32,7 @@ Se conseguir síncrona/assíncrona:
 - Framework gráficos para microserviços (Molecular / Nest)
 - _expectResponse_ (Algo Assim)
 - trocar PhantomJS (por conta de estar depreciado) por puppeteer
+
+## Como Startar
+
+Abra um terminal e starte o docker primeiro `docker-compose up -d`, Ao terminal no mesmo terminal mesmo entre na pasta api e starte a API REST `npm run dev`, em outro terminal na pasta certification starte o micro-serviço de gerar certificados `npm run dev`
