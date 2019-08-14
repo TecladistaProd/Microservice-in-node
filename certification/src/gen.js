@@ -34,7 +34,6 @@ export default (user, course) =>
     try {
       let tempFile = resolve(__dirname, `./temp/${user.user_id}.html`);
       await writeFile(tempFile, html);
-
       let program = phantom.exec(
         "--debug=false",
         "./src/ph.js",

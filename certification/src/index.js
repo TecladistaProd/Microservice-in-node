@@ -2,7 +2,7 @@ import { Kafka } from "kafkajs";
 import certificateGen from "./gen";
 
 const kafka = new Kafka({
-  brokers: ["localhost:9092"],
+  brokers: ["kafka:9092"],
   clientId: "certificate"
 });
 
@@ -25,29 +25,33 @@ async function run() {
       // console.log(`- ${prefix} ${message.key}#${message.value}`);
 
       const payload = JSON.parse(message.value);
-
-      await certificateGen(
-        {
-          user_id: payload.user,
-          name: payload.name
-        },
-        {
-          name: payload.course,
-          startMonth: payload.startMonth,
-          endMonth: payload.endMonth,
-          totalHours: payload.totalHours
-        }
-      );
-      await producer.send({
-        topic: "certification-response",
-        messages: [
+      try{
+        await certificateGen(
           {
-            value: `Certificate ${payload.user} generated`
+            user_id: payload.user,
+            name: payload.name
+          },
+          {
+            name: payload.course,
+            startMonth: payload.startMonth,
+            endMonth: payload.endMonth,
+            totalHours: payload.totalHours
           }
-        ]
-      });
+        );
+        await producer.send({
+          topic: "certification-response",
+          messages: [
+            {
+              value: `Certificate ${payload.user} generated`
+            }
+          ]
+        });
+      } catch(err) {
+        console.log(err.message)
+        console.log(err.stack)
+      }
     }
   });
 }
 
-run();
+setTimeout(run, 7000);
