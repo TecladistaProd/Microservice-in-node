@@ -8,7 +8,7 @@
     "build": ""
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "kafkajs": "^1.10.0"
   },
   "devDependencies": {
